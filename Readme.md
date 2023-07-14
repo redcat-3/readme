@@ -1,7 +1,7 @@
 # Личный проект «Readme»
 
 * Студент: [Зоя Педонова](https://up.htmlacademy.ru/nodejs-2/4/user/171114).
-* Наставник: `Неизвестно`.
+* Наставник: [Константин Ильин](https://htmlacademy.ru/profile/id2374827).
 
 ---
 
