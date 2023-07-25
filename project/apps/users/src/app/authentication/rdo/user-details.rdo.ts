@@ -17,8 +17,8 @@ export class UserRdo {
   public name: string;
 
   @Expose()
-  public publicationsCount: number;
+  public postsCount: number;
 
   @Expose()
-  public followersCount: number;
+  public writersCount: number;
 }

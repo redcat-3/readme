@@ -8,6 +8,8 @@ export class BlogUserEntity implements User {
   public email: string;
   public name: string;
   public passwordHash: string;
+  public posts: string[];
+  public writers: string[];
 
   constructor(blogUser: User) {
     this.fillEntity(blogUser);
