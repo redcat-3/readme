@@ -9,7 +9,9 @@ export class BlogUserEntity implements User {
   public name: string;
   public passwordHash: string;
   public posts: string[];
-  public writers: string[];
+  public followUsers: string[];
+  public createdAt: Date;
+  public updateAt: Date;
 
   constructor(blogUser: User) {
     this.fillEntity(blogUser);
