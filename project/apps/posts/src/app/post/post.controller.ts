@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpStatus, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpStatus, Param, Patch, Post } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { fillObject } from '@project/util/util-core';
 import { PostService } from './post.service';
@@ -53,7 +53,7 @@ export class PostController {
     status: HttpStatus.OK,
     description: 'Post deleted'
   })
-  @Patch(':id')
+  @Delete(':id')
   public async delete(@Param('id') id: string) {
     return await this.postService.delete(id);
   }

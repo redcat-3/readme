@@ -28,7 +28,7 @@ export class FeedController {
     status: HttpStatus.CREATED,
     description: 'The new repost has been successfully created.'
   })
-  @Post()
+  @Post(':id')
   public async repost() {
     this.postService.repost();
     return;
