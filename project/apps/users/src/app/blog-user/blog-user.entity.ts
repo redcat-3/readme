@@ -12,6 +12,7 @@ export class BlogUserEntity implements User {
   public followUsers: string[];
   public createdAt: Date;
   public updateAt: Date;
+  public likedPost: string[];
 
   constructor(blogUser: User) {
     this.fillEntity(blogUser);
