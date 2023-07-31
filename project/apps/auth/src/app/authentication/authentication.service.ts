@@ -1,5 +1,5 @@
 import { ConflictException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
-import { BlogUserMemoryRepository } from '../../../../users/src/app/blog-user/blog-user-memory.repository';
+import { UserMemoryRepository } from '../../../../../libs/repositories/user-repository/src/lib/user-memory.repository';
 import { CreateUserDto } from './dto/create-user.dto';
 import { AUTH_USER_EXISTS, AUTH_USER_NOT_FOUND, AUTH_USER_PASSWORD_WRONG } from '../../../../auth/src/app/authentication/authentication.constant';
 import { BlogUserEntity } from '../../../../users/src/app/blog-user/blog-user.entity';
@@ -8,7 +8,7 @@ import { LoginUserDto } from './dto/login-user.dto';
 @Injectable()
 export class AuthenticationService {
   constructor(
-    private readonly blogUserRepository: BlogUserMemoryRepository
+    private readonly userRepository: UserMemoryRepository,
   ) {
   }
   public async register(dto: CreateUserDto) {
@@ -18,7 +18,7 @@ export class AuthenticationService {
       email, name, avatar: '', passwordHash: ''
     };
 
-    const existUser = await this.blogUserRepository
+    const existUser = await this.userRepository
       .findByEmail(email);
 
     if (existUser) {
@@ -28,13 +28,13 @@ export class AuthenticationService {
     const userEntity = await new BlogUserEntity(blogUser)
       .setPassword(password)
 
-    return this.blogUserRepository
+    return this.userRepository
       .create(userEntity);
   }
 
   public async verifyUser(dto: LoginUserDto) {
     const {email, password} = dto;
-    const existUser = await this.blogUserRepository.findByEmail(email);
+    const existUser = await this.userRepository.findByEmail(email);
 
     if (!existUser) {
       throw new NotFoundException(AUTH_USER_NOT_FOUND);
@@ -49,7 +49,7 @@ export class AuthenticationService {
   }
 
   public async getUser(id: string) {
-    return this.blogUserRepository.findById(id);
+    return this.userRepository.findById(id);
   }
 
   public async changePassword(id: string) {

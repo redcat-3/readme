@@ -1,11 +1,15 @@
 import { Injectable } from '@nestjs/common';
-import { BlogUserMemoryRepository } from './blog-user-memory.repository';
+import { UserMemoryRepository } from '../../../../../libs/repositories/user-repository/src/lib/user-memory.repository';
 
 @Injectable()
 export class BlogUserService {
   constructor(
-    private readonly blogUserRepository: BlogUserMemoryRepository
+    private readonly userRepository: UserMemoryRepository
   ) {
+  }
+
+  public async findByEmail(email: string) {
+    return await this.userRepository.findByEmail(email);
   }
 
   public async getFollowUsers() {
@@ -17,6 +21,6 @@ export class BlogUserService {
   }
 
   public async getUserDetails(id: string) {
-    return this.blogUserRepository.findById(id);
+    return this.userRepository.findById(id);
   }
 }
