@@ -1,1 +1,1 @@
-export * from './lib/user-memory.repository';
+export * from './lib/user.repository';

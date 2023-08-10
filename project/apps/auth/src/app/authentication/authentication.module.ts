@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { AuthenticationController } from './authentication.controller';
 import { AuthenticationService } from './authentication.service';
-import { UserMemoryModule } from '../../../../../libs/repositories/user-repository/src/lib/user-memory.module';
+import { UserRepositoryModule } from '../../../../../libs/repositories/user-repository/src/lib/user-repository.module';
 
 @Module({
-  imports: [UserMemoryModule],
+  imports: [UserRepositoryModule],
   controllers: [AuthenticationController],
   providers: [AuthenticationService],
 })

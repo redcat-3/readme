@@ -2,11 +2,13 @@ import { Controller, Get, HttpStatus, Param } from '@nestjs/common';
 import { BlogUserService } from './blog-user.service';
 import { ApiResponse } from '@nestjs/swagger';
 import { UserDetailsRdo } from './rdo/user-details.rdo';
+import { InjectModel } from '@nestjs/mongoose';
+import { User } from './blog-user.schema';
 
 @Controller('user')
 export class BlogUserController {
   constructor(
-    private readonly userService: BlogUserService
+    @InjectModel(User.name) private readonly userService: BlogUserService
   ) {}
 
   @ApiResponse({

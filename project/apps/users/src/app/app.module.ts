@@ -1,17 +1,29 @@
 import { Module } from '@nestjs/common';
 import { BlogUserModule } from './blog-user/blog-user.module';
-import { ConfigUsersModule } from '@project/config/config-users';
 import { AuthenticationModule } from '../../../auth/src/app//authentication/authentication.module';
-import { UserMemoryModule } from 'libs/repositories/user-repository/src/lib/user-memory.module';
+import { UserRepositoryModule } from 'libs/repositories/user-repository/src/lib/user-repository.module';
+import { ConfigUsersModule, getMongooseOptions } from '@project/config/config-users';
+import { MongooseModule } from '@nestjs/mongoose';
+import { User, UserSchema } from './blog-user/blog-user.schema';
+import { BlogUserController } from './blog-user/blog-user.controller';
 
 @Module({
   imports: [
     BlogUserModule,
     AuthenticationModule,
     ConfigUsersModule,
-    UserMemoryModule
+    UserRepositoryModule,
+    MongooseModule.forRootAsync(
+      getMongooseOptions(),
+    ),
+    MongooseModule.forFeature([
+      {
+        name: User.name,
+        schema: UserSchema,
+      },
+    ]),
   ],
-  controllers: [],
+  controllers: [BlogUserController],
   providers: [],
 })
 export class AppModule {}

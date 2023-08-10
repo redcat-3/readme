@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { UserMemoryRepository } from '../../../../../libs/repositories/user-repository/src/lib/user-memory.repository';
+import { UserRepository } from '../../../../../libs/repositories/user-repository/src/lib/user.repository';
 
 @Injectable()
 export class BlogUserService {
   constructor(
-    private readonly userRepository: UserMemoryRepository
+    private readonly userRepository: UserRepository
   ) {
   }
 
