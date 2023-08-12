@@ -4,8 +4,8 @@ import { AuthenticationModule } from '../../../auth/src/app//authentication/auth
 import { UserRepositoryModule } from 'libs/repositories/user-repository/src/lib/user-repository.module';
 import { ConfigUsersModule, getMongooseOptions } from '@project/config/config-users';
 import { MongooseModule } from '@nestjs/mongoose';
-import { User, UserSchema } from './blog-user/blog-user.schema';
 import { BlogUserController } from './blog-user/blog-user.controller';
+import { BlogUserModel, BlogUserSchema } from './blog-user/blog-user.model';
 
 @Module({
   imports: [
@@ -16,14 +16,20 @@ import { BlogUserController } from './blog-user/blog-user.controller';
     MongooseModule.forRootAsync(
       getMongooseOptions(),
     ),
-    MongooseModule.forFeature([
+    MongooseModule.forFeatureAsync([
       {
-        name: User.name,
-        schema: UserSchema,
-      },
+        name: BlogUserModel.name,
+        useFactory: () => {
+          const schema = BlogUserSchema;
+          schema.pre('save', function () {
+            console.log('Hello from pre save');
+          });
+          return schema;
+        },
+      }
     ]),
   ],
   controllers: [BlogUserController],
-  providers: [],
+  providers: [UserRepositoryModule,],
 })
 export class AppModule {}

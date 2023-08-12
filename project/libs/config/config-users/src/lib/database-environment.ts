@@ -1,7 +1,3 @@
-
-// const MIN_PORT = 0;
-// const MAX_PORT = 65535;
-
 export enum EnvValidationMessage {
   DBHostRequired = 'MongoDB host is required',
   DBNameRequired = 'Database name is required',
@@ -12,17 +8,13 @@ export enum EnvValidationMessage {
 }
 
 export class DatabaseEnvironment {
-
   public name: string;
 
-
   public host: string;
-
 
   public port: number;
 
   public user: string;
-
 
   public password: string;
 
