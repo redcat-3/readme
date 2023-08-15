@@ -13,6 +13,7 @@ export interface DbConfig {
 }
 
 export default registerAs('db', (): DbConfig => {
+
   const config: DbConfig = {
     host: process.env.MONGO_HOST,
     port: parseInt(process.env.MONGO_PORT ?? DEFAULT_MONGO_PORT.toString(), 10),
