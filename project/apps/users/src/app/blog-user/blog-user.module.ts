@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
-import { BlogUserMemoryRepository } from './blog-user-memory.repository';
 import { BlogUserController } from './blog-user.controller';
 import { BlogUserService } from './blog-user.service';
+import { UserRepositoryModule } from 'libs/repositories/user-repository/src/lib/user-repository.module';
 
 @Module({
-  providers: [BlogUserMemoryRepository, BlogUserService],
-  exports: [BlogUserMemoryRepository],
+  imports: [UserRepositoryModule],
   controllers: [BlogUserController],
+  providers: [BlogUserService],
 })
 export class BlogUserModule {}
