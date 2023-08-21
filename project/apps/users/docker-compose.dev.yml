@@ -1,6 +1,5 @@
 version: '3.5'
 services:
-
   readme.users.mongo:
     image: mongo
     restart: always

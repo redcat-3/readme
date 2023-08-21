@@ -1,18 +1,17 @@
 import { PostStatus } from './post-status.enum'
 import { VideoPost, TextPost, QuotePost, PhotoPost, RefPost} from './content.interface';
 import { PostType } from './post-type.enum';
+import { Comment } from '@project/shared/app-types';
 
 export interface Post {
-  _id?: string;
+  postId: number;
   title: string;
   tegs: string[];
   author: string;
-  creationAt: string;
-  publicationDate: string;
+  createAt: Date;
+  publishAt: Date;
   status: PostStatus;
   likesCount: number;
-  liked: boolean;
-  comments: string[];
   repost: boolean;
   originAuthor: string;
   originId: string;

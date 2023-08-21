@@ -1,0 +1,68 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output = "../../../../node_modules/.prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Post {
+  postId       Int      @id @default(autoincrement()) @map("post_id")
+  title        String   @default("")
+  tegs         String[] @default([])
+  author       String
+  content      String   @default("")
+  createAt    DateTime @default(now()) @map("created_at")
+  publishAt    DateTime @updatedAt @map("publish_at")
+  status       PostStatus   @default(DRAFT)
+  likesCount   Int      @default(0)
+  repost       Boolean
+  originAuthor String?
+  originId     String?
+  type         PostType @default(TEXT)
+  favorite     Favorite[]
+  comments     Comment[]
+
+   @@map("posts")
+}
+
+model Comment {
+  commentId Int      @id @default(autoincrement()) @map("comment_id")
+  text      String
+  author    String   @map("user_id")
+  post      Post     @relation(fields: [postId], references: [postId], onDelete: Cascade, onUpdate: Cascade)
+  postId    Int      @map("post_id")
+  createAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("comments")
+}
+
+model Favorite {
+  favoriteId Int      @id @default(autoincrement()) @map("favorite_id")
+  post       Post     @relation(fields: [postId], references: [postId], onDelete: Cascade)
+  postId     Int      @map("post_id")
+  userId     String   @map("user_id")
+  createAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @default(now()) @updatedAt @map("updated_at")
+
+  @@map("favorites")
+}
+
+enum PostType {
+  VIDEO
+  TEXT
+  QUOTE
+  PHOTO
+  REF
+}
+
+enum PostStatus {
+  PUBLISHED
+  DRAFT
+}
