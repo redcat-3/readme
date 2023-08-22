@@ -31,7 +31,6 @@ export class PostEntity implements Post {
   }
 
   public fillEntity(post: Post): void {
-    this.postId = post.postId;
     this.title = post.title;
     this.tegs = post.tegs;
     this.author = post.author;
@@ -44,5 +43,6 @@ export class PostEntity implements Post {
     this.originId = post.originId;
     this.type = post.type;
     this.content = post.content;
+    this.comments = [];
   }
 }

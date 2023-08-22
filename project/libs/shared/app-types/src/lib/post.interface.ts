@@ -17,4 +17,5 @@ export interface Post {
   originId: string;
   type: PostType;
   content: VideoPost | TextPost | QuotePost | PhotoPost | RefPost;
+  comments: Comment[];
 }
