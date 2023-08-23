@@ -1,5 +1,4 @@
 import { PrismaClient } from '@prisma/client';
-import { process } from 'process';
 
 const prisma = new PrismaClient();
 
@@ -33,13 +32,13 @@ async function fillDb() {
   console.info('🤘️ Database was filled')
 }
 
-fillDb()
-  .then(async () => {
-    await prisma.$disconnect()
-  })
-  .catch(async (err) => {
-    console.error(err);
-    await prisma.$disconnect()
+try {
+ fillDb()
+  }
+ catch(err) {
+  console.error(err);
+ }
+ finally {
+  prisma.$disconnect()
+ }
 
-    process.exit(1);
-  })
