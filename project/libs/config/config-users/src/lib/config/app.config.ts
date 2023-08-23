@@ -1,9 +1,6 @@
 import { registerAs } from '@nestjs/config';
 import * as Joi from 'joi';
 
-const DEFAULT_PORT = 3000;
-const DEFAULT_NODE_ENV = 'development';
-
 export interface ApplicationConfig {
   environment: string;
   port: number;
@@ -12,12 +9,12 @@ export interface ApplicationConfig {
 export default registerAs('application', (): ApplicationConfig => {
   const config: ApplicationConfig = {
     environment: process.env.NODE_ENV,
-    port: parseInt(process.env.PORT || DEFAULT_PORT.toString(), 10),
+    port: parseInt(process.env.PORT, 10),
   };
 
   const validationSchema = Joi.object<ApplicationConfig>({
-    environment: Joi.string().valid('development', 'production', 'stage').default(DEFAULT_NODE_ENV),
-    port: Joi.number().port().default(DEFAULT_PORT),
+    environment: Joi.string().valid('development', 'production', 'stage'),
+    port: Joi.number().port(),
   });
 
   const { error } = validationSchema.validate(config, { abortEarly: true });

@@ -9,15 +9,12 @@ Content-Type: application/json
   "author": "Keks",
   "status": "published",
   "likesCount": 25,
-  "liked": true,
   "comments": [],
   "repost": false,
   "originAuthor": "",
   "originId": "",
   "type": "photo",
-  "content": {
-    "photoPath": "/images/1.jpg"
-  }
+  "content": "/images/1.jpg"
 }
 
 ###

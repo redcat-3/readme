@@ -9,6 +9,7 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "target": "es2015",
+    "types": ["node"],
     "module": "esnext",
     "lib": ["es2020", "dom"],
     "skipLibCheck": true,
@@ -17,6 +18,7 @@
     "paths": {
       "@project/config": ["libs/config/src/index.ts"],
       "@project/config/config-users": ["libs/config/config-users/src/index.ts"],
+      "@project/models/posts-models": ["libs/models/posts-models/src/index.ts"],
       "@project/repositories/user-repository": [
         "libs/repositories/user-repository/src/index.ts"
       ],

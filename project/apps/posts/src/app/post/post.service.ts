@@ -1,48 +1,36 @@
 import { Injectable } from '@nestjs/common';
-import { PostMemoryRepository } from './post-memory.repository';
+import { PostRepository } from './post.repository';
 import { CreatePostDto } from './dto/create-post.dto';
 import { PostEntity } from './post.entity';
 import { UpdatePostDto } from './dto/update-post.dto';
+import { Post } from '@prisma/client';
 
 @Injectable()
 export class PostService {
   constructor(
-    private readonly postRepository: PostMemoryRepository
+    private readonly postRepository: PostRepository
   ) {
   }
-  public async create(dto: CreatePostDto) {
-    const postEntity = new PostEntity(dto);
-
-    return this.postRepository
-      .create(postEntity);
+  async createPost(dto: CreatePostDto): Promise<Post> {
+    const postEntity = new PostEntity({ ...dto, comments: [] });
+    return this.postRepository.create(postEntity);
   }
 
-  public async getPost(id: string) {
+  async deletePost(id: number): Promise<void> {
+    this.postRepository.destroy(id);
+  }
+
+  async getPost(id: number): Promise<Post> {
     return this.postRepository.findById(id);
   }
 
-  public async findByTitle() {
-    return this.postRepository.findByTitle();
+  async getPosts(): Promise<Post[]> {
+    return this.postRepository.find();
   }
 
-  public async updatePost(id: string, dto: UpdatePostDto) {
-    const update = new PostEntity(dto);
-    return this.postRepository.update(id, update);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async updatePost(_id: number, _dto: UpdatePostDto): Promise<Post> {
+    throw new Error('Not implemented…');
   }
 
-  public async delete(id: string) {
-    return this.postRepository.destroy(id);
-  }
-
-  public async likeChange() {
-    return;
-  }
-
-  public async findByUser() {
-    return;
-  }
-
-  public async repost() {
-    return;
-  }
 }

@@ -3,6 +3,7 @@ import { Expose } from 'class-transformer';
 import { PhotoPost, QuotePost, RefPost, TextPost, VideoPost } from 'libs/shared/app-types/src/lib/content.interface';
 import { PostStatus } from 'libs/shared/app-types/src/lib/post-status.enum';
 import { PostType } from 'libs/shared/app-types/src/lib/post-type.enum';
+import { Comment } from '@project/shared/app-types';
 
 export class PostRdo {
   @ApiProperty({
@@ -10,8 +11,7 @@ export class PostRdo {
     example: '13'
   })
   @Expose({ name: '_id'})
-  public id: string;
-
+  public posId: number;
   @ApiProperty({
     description: 'Title of the post',
     example: 'Universe loves you'
@@ -38,14 +38,14 @@ export class PostRdo {
     example: '2020-04-02T08:02:17-05:00'
   })
   @Expose()
-  public creationAt: string;
+  public createAt: string;
 
   @ApiProperty({
     description: 'Date of publication the post',
     example: '2020-04-02T08:02:17-05:00'
   })
   @Expose()
-  public publicationDate: string;
+  public publishAt: string;
 
   @ApiProperty({
     description: 'Status of the post, published or draft',
@@ -62,18 +62,11 @@ export class PostRdo {
   public likesCount: number;
 
   @ApiProperty({
-    description: 'Post is liked or not',
-    example: true
-  })
-  @Expose()
-  public liked: boolean;
-
-  @ApiProperty({
     description: 'Comments list of the post',
     example: ['869696oplklkl']
   })
   @Expose()
-  public comments: string[];
+  public comments: Comment[];
 
   @ApiProperty({
     description: 'Post is reposted or not',

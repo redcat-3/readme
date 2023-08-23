@@ -2,13 +2,14 @@ import { ApiProperty } from '@nestjs/swagger';
 import { PhotoPost, QuotePost, RefPost, TextPost, VideoPost } from 'libs/shared/app-types/src/lib/content.interface';
 import { PostStatus } from 'libs/shared/app-types/src/lib/post-status.enum';
 import { PostType } from 'libs/shared/app-types/src/lib/post-type.enum';
+import { Comment } from '@project/shared/app-types';
 
 export class UpdatePostDto {
   @ApiProperty({
     description: 'The uniq post ID',
     example: '980948930xh'
   })
-  public id: string;
+  public id: number;
 
   @ApiProperty({
     description: 'Title of the post',
@@ -32,13 +33,13 @@ export class UpdatePostDto {
     description: 'Date of creation the post',
     example: '2020-04-02T08:02:17-05:00'
   })
-  public creationAt: string;
+  public createAt: Date;
 
   @ApiProperty({
     description: 'Date of publication the post',
     example: '2020-04-02T08:02:17-05:00'
   })
-  public publicationDate: string;
+  public publishAt: Date;
 
   @ApiProperty({
     description: 'Status of the post, published or draft',
@@ -53,16 +54,10 @@ export class UpdatePostDto {
   public likesCount: number;
 
   @ApiProperty({
-    description: 'Post is liked or not',
-    example: true
-  })
-  public liked: boolean;
-
-  @ApiProperty({
     description: 'Comments list of the post',
     example: ['869696oplklkl']
   })
-  public comments: string[];
+  public comments: Comment[];
 
   @ApiProperty({
     description: 'Post is reposted or not',

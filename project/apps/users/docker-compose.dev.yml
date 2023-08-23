@@ -1,12 +1,9 @@
 version: '3.5'
 services:
-
   readme.users.mongo:
     image: mongo
     restart: always
     container_name: readme.users.mongo
-
-    env_file: .env
 
     environment:
       MONGO_INITDB_ROOT_USERNAME: $MONGO_USER
