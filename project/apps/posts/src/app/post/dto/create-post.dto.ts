@@ -1,8 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Comment } from '@project/shared/app-types';
-import { PhotoPost, QuotePost, RefPost, TextPost, VideoPost } from 'libs/shared/app-types/src/lib/content.interface';
-import { PostStatus } from 'libs/shared/app-types/src/lib/post-status.enum';
-import { PostType } from 'libs/shared/app-types/src/lib/post-type.enum';
+import { PostStatus, PostType } from '@prisma/client';
+
 
 export class CreatePostDto {
   @ApiProperty({
@@ -48,12 +46,6 @@ export class CreatePostDto {
   public likesCount: number;
 
   @ApiProperty({
-    description: 'Comments list of the post',
-    example: ['869696oplklkl']
-  })
-  public comments: Comment[];
-
-  @ApiProperty({
     description: 'Post is reposted or not',
     example: false
   })
@@ -78,8 +70,8 @@ export class CreatePostDto {
   public type: PostType;
 
   @ApiProperty({
-    description: `Content of the post may be ${Object.values(PostType)}`,
+    description: `Path to content file`,
     example: '2020-04-02T08:02:17-05:00'
   })
-  public content: VideoPost | TextPost | QuotePost | PhotoPost | RefPost;
+  public content: string;
 }

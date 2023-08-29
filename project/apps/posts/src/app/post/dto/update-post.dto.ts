@@ -1,7 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { PhotoPost, QuotePost, RefPost, TextPost, VideoPost } from 'libs/shared/app-types/src/lib/content.interface';
-import { PostStatus } from 'libs/shared/app-types/src/lib/post-status.enum';
-import { PostType } from 'libs/shared/app-types/src/lib/post-type.enum';
+import { PostStatus, PostType } from '@prisma/client';
 import { Comment } from '@project/shared/app-types';
 
 export class UpdatePostDto {
@@ -9,7 +7,7 @@ export class UpdatePostDto {
     description: 'The uniq post ID',
     example: '980948930xh'
   })
-  public id: number;
+  public postId: number;
 
   @ApiProperty({
     description: 'Title of the post',
@@ -79,13 +77,13 @@ export class UpdatePostDto {
 
   @ApiProperty({
     description: 'Type of the post',
-    example: PostType.PHOTO
+    example: PostType.photo
   })
   public type: PostType;
 
   @ApiProperty({
-    description: `Content of the post may be ${Object.values(PostType)}`,
+    description: `Path to content file`,
     example: '2020-04-02T08:02:17-05:00'
   })
-  public content: VideoPost | TextPost | QuotePost | PhotoPost | RefPost;
+  public content: string;
 }

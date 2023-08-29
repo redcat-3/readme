@@ -11,5 +11,5 @@
     "src/**/*.spec.ts",
     "src/**/*.d.ts",
     "src/**/*.ts"
-  ]
+, "src/app/post/post.service.ts"  ]
 }

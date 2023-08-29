@@ -1,21 +1,21 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 enum PostType {
-  VIDEO
-  TEXT
-  QUOTE
-  PHOTO
-  REF
+video
+text
+quote
+photo
+reference
 }
 
 enum PostStatus {
-  PUBLISHED
-  DRAFT
+  published
+  draft
 }
 
 generator client {
   provider = "prisma-client-js"
-  output = "../../../../node_modules/.prisma"
+  output = "../../../../node_modules/.prisma/client"
 }
 
 datasource db {
@@ -31,12 +31,12 @@ model Post {
   content      String   @default("")
   createAt    DateTime @default(now()) @map("created_at")
   publishAt    DateTime @updatedAt @map("publish_at")
-  status       PostStatus   @default(DRAFT)
-  likesCount   Int      @default(0)
+  status       PostStatus   @default(draft)
+  likesCount   Int      @default(0) @map("likes_count")
   repost       Boolean
   originAuthor String?  @map("origin_author")
-  originId     String?
-  type         PostType @default(TEXT)
+  originId     String?  @map("origin_id")
+  type         PostType @default(text)
   favorite     Favorite[]
   comments     Comment[]
 

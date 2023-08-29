@@ -1,16 +1,24 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
-import { fillObject } from '@project/util/util-core';
+import {
+  Controller,
+  Get,
+  Param,
+  Post,
+  Body,
+  Delete,
+  HttpStatus,
+  HttpCode,
+  Patch,
+  Query,
+} from '@nestjs/common';
 import { PostService } from './post.service';
-import { CreatePostDto } from './dto/create-post.dto';
 import { PostRdo } from './rdo/post.rdo';
-import { Injectable } from '@nestjs/common';
-import { UpdatePostDto } from './dto/update-post.dto';
 import { CommentService } from '../comment/comment.service';
+import { fillObject } from '../../../../../libs/util/util-core/src/lib/helpers'
+import { CreatePostDto } from './dto/create-post.dto';
+import { UpdatePostDto } from './dto/update-post.dto';
+import { Post as PostModel} from '@prisma/client';
+import { PostQuery } from './query/post.query';
 
-
-@Injectable()
-@ApiTags('publication')
 @Controller('post')
 export class PostController {
   constructor(
@@ -19,36 +27,41 @@ export class PostController {
   ) {}
 
   @Get('/:id')
-  async show(@Param('id') id: string) {
-    const postId = parseInt(id, 10);
-    const post = await this.postService.getPost(postId);
+  async show(@Param('id') id: string): Promise<PostModel>{
+    const post = await this.postService.post({ postId: Number(id) });
     return fillObject(PostRdo, post);
   }
 
   @Get('/')
-  async index() {
-    const posts = await this.postService.getPosts();
-    return fillObject(PostRdo, posts);
+  async index(@Query() query: PostQuery){
+    const post = await this.postService.find(query);
+    return fillObject(PostRdo, post);
   }
 
   @Post('/')
-  async create(@Body() dto: CreatePostDto) {
-    const newPost = await this.postService.createPost(dto);
+  async create(
+    @Body() dto: CreatePostDto ) {
+      const newPost = await this.postService.createPost(dto);
     return fillObject(PostRdo, newPost);
   }
 
   @Delete('/:id')
   @HttpCode(HttpStatus.NO_CONTENT)
-  async destroy(@Param('id') id: string) {
-    const postId = parseInt(id, 10);
-    this.postService.deletePost(postId);
+  async destroy(@Param('id') id: number) {
+    return this.postService.deletePost(id);
   }
 
   @Patch('/:id')
-  async update(@Param('id') id: string, @Body() dto: UpdatePostDto) {
-    const postId = parseInt(id, 10);
-    const updatedPost = await this.postService.updatePost(postId, dto);
-    return fillObject(PostRdo, updatedPost)
+  async update(@Param('id') id: string, dto: UpdatePostDto) {
+    const updatedPost = await this.postService.updatePost({
+      where: { postId: Number(id) },
+      data: { ...dto,
+        comments: {
+          connect: []
+        },
+       }
+    });
+    return fillObject(PostRdo, updatedPost);
   }
 }
 

@@ -1,9 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Expose } from 'class-transformer';
-import { PhotoPost, QuotePost, RefPost, TextPost, VideoPost } from 'libs/shared/app-types/src/lib/content.interface';
-import { PostStatus } from 'libs/shared/app-types/src/lib/post-status.enum';
-import { PostType } from 'libs/shared/app-types/src/lib/post-type.enum';
 import { Comment } from '@project/shared/app-types';
+import { PostStatus, PostType } from '@prisma/client';
 
 export class PostRdo {
   @ApiProperty({
@@ -11,7 +9,8 @@ export class PostRdo {
     example: '13'
   })
   @Expose({ name: '_id'})
-  public posId: number;
+  public postId: number;
+
   @ApiProperty({
     description: 'Title of the post',
     example: 'Universe loves you'
@@ -38,14 +37,14 @@ export class PostRdo {
     example: '2020-04-02T08:02:17-05:00'
   })
   @Expose()
-  public createAt: string;
+  public createAt: Date;
 
   @ApiProperty({
     description: 'Date of publication the post',
     example: '2020-04-02T08:02:17-05:00'
   })
   @Expose()
-  public publishAt: string;
+  public publishAt: Date;
 
   @ApiProperty({
     description: 'Status of the post, published or draft',
@@ -91,15 +90,15 @@ export class PostRdo {
 
   @ApiProperty({
     description: 'Type of the post',
-    example: PostType.PHOTO
+    example: PostType.photo
   })
   @Expose()
   public type: PostType;
 
   @ApiProperty({
-    description: `Content of the post may be ${Object.values(PostType)}`,
+    description: `Path to content file}`,
     example: '2020-04-02T08:02:17-05:00'
   })
   @Expose()
-  public content: VideoPost | TextPost | QuotePost | PhotoPost | RefPost;
+  public content: string;
 }
