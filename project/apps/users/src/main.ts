@@ -18,10 +18,10 @@ async function bootstrap() {
     .setVersion('1.0')
     .build();
 
-  const globalPrefix = 'api';
-  app.setGlobalPrefix(globalPrefix);
   const configService = app.get(ConfigService);
   const document = SwaggerModule.createDocument(app, config);
+  const globalPrefix = configService.get('globalPrefix');
+  app.setGlobalPrefix(globalPrefix);
   SwaggerModule.setup('spec', app, document);
 
   app.useGlobalPipes(new ValidationPipe({

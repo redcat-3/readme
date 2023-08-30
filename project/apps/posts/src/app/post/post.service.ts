@@ -49,18 +49,18 @@ export class PostService {
     });
   }
 
-  public async deletePost(postId: number): Promise<void> {
+  public async deletePost(id: number): Promise<void> {
     await this.prisma.post.delete({
       where: {
-        postId,
+        postId: id,
       }
     });
   }
 
-  public async findById(postId: number): Promise<Post | null> {
+  public async findById(id: number): Promise<Post | null> {
     return this.prisma.post.findFirst({
       where: {
-        postId
+        postId: id,
       },
       include: {
         comments: true

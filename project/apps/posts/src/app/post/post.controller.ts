@@ -19,7 +19,7 @@ import { UpdatePostDto } from './dto/update-post.dto';
 import { Post as PostModel} from '@prisma/client';
 import { PostQuery } from './query/post.query';
 
-@Controller('post')
+@Controller('posts')
 export class PostController {
   constructor(
     private readonly postService: PostService,
@@ -38,7 +38,7 @@ export class PostController {
     return fillObject(PostRdo, post);
   }
 
-  @Post('/')
+  @Post('/create')
   async create(
     @Body() dto: CreatePostDto ) {
       const newPost = await this.postService.createPost(dto);
@@ -51,7 +51,7 @@ export class PostController {
     return this.postService.deletePost(id);
   }
 
-  @Patch('/:id')
+  @Patch('/update/:id')
   async update(@Param('id') id: string, dto: UpdatePostDto) {
     const updatedPost = await this.postService.updatePost({
       where: { postId: Number(id) },

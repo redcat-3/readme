@@ -5,6 +5,7 @@ export interface UploaderConfig {
   serveRoot: string;
   environment: string;
   uploadDirectory: string;
+  globalPrefix: string;
   port: number;
   db: {
     host: string;
@@ -20,6 +21,7 @@ export default registerAs('application', (): UploaderConfig => {
     serveRoot: process.env.SERVE_ROOT,
     environment: process.env.NODE_ENV,
     uploadDirectory: process.env.UPLOAD_DIRECTORY_PATH,
+    globalPrefix: process.env.GLOBAL_PREFIX,
     port: parseInt(process.env.PORT),
     db: {
       host: process.env.MONGO_HOST,
@@ -34,6 +36,7 @@ export default registerAs('application', (): UploaderConfig => {
     serveRoot: Joi.string().required(),
     environment: Joi.string()
       .valid('development', 'production', 'stage'),
+    globalPrefix: Joi.string(),
     port: Joi.number()
       .port(),
     uploadDirectory: Joi.string(),

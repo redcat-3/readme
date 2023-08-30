@@ -5,7 +5,7 @@ import { Comment } from '@project/shared/app-types';
 export class UpdatePostDto {
   @ApiProperty({
     description: 'The uniq post ID',
-    example: '980948930xh'
+    example: '98'
   })
   public postId: number;
 
@@ -23,7 +23,7 @@ export class UpdatePostDto {
 
   @ApiProperty({
     description: 'Author of the post',
-    example: 'Keks'
+    example: '413'
   })
   public author: string;
 
@@ -53,7 +53,7 @@ export class UpdatePostDto {
 
   @ApiProperty({
     description: 'Comments list of the post',
-    example: ['869696oplklkl']
+    example: ['869']
   })
   public comments: Comment[];
 
@@ -65,13 +65,13 @@ export class UpdatePostDto {
 
   @ApiProperty({
     description: 'Author indificator of origin post',
-    example: '9809kjkxjfj'
+    example: '98'
   })
   public originAuthor: string;
 
   @ApiProperty({
     description: 'Indificator of origin post',
-    example: '839872jxhkhx'
+    example: '83'
   })
   public originId: string;
 
@@ -83,7 +83,7 @@ export class UpdatePostDto {
 
   @ApiProperty({
     description: `Path to content file`,
-    example: '2020-04-02T08:02:17-05:00'
+    example: '/images/1.jpg'
   })
   public content: string;
 }

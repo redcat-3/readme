@@ -17,7 +17,7 @@ export class CreatePostDto {
 
   @ApiProperty({
     description: 'Author of the post',
-    example: 'Keks'
+    example: '434'
   })
   public author: string;
 
@@ -53,13 +53,13 @@ export class CreatePostDto {
 
   @ApiProperty({
     description: 'Author indificator of origin post',
-    example: '9809kjkxjfj'
+    example: '98'
   })
   public originAuthor: string;
 
   @ApiProperty({
     description: 'Indificator of origin post',
-    example: '839872jxhkhx'
+    example: '83'
   })
   public originId: string;
 
@@ -71,7 +71,7 @@ export class CreatePostDto {
 
   @ApiProperty({
     description: `Path to content file`,
-    example: '2020-04-02T08:02:17-05:00'
+    example: '/images/1.jpg'
   })
   public content: string;
 }
