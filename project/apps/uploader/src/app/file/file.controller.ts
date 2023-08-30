@@ -26,7 +26,7 @@ export class FileController {
     const newFile = await this.fileService.saveFile(file);
     const filePath = path.join(this.applicationConfig.serveRoot, newFile.path);
     const storage = diskStorage({
-      destination: this.applicationConfig.uploadDirectory,
+      destination: filePath,
       filename: (_req, file, callback) => {
         const extension = newFile.mimetype;
         const filename = newFile.id;
