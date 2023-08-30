@@ -65,7 +65,7 @@ export class CreatePostDto {
 
   @ApiProperty({
     description: 'Type of the post',
-    example: PostType.PHOTO
+    example: PostType.photo
   })
   public type: PostType;
 

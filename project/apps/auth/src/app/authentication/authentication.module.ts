@@ -5,6 +5,7 @@ import { UserRepositoryModule } from '../../../../../libs/repositories/user-repo
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { getJwtOptions } from '@project/config/config-users';
+import { JwtAccessStrategy } from './strategies/jwt-access.strategy';
 
 @Module({
   imports: [
@@ -15,6 +16,9 @@ import { getJwtOptions } from '@project/config/config-users';
     })
   ],
   controllers: [AuthenticationController],
-  providers: [AuthenticationService],
+  providers: [
+    AuthenticationService,
+    JwtAccessStrategy
+  ],
 })
 export class AuthenticationModule {}

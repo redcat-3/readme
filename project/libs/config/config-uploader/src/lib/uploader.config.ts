@@ -12,7 +12,6 @@ export interface UploaderConfig {
     user: string;
     name: string;
     password: string;
-    authBase: string;
   }
 }
 
@@ -44,7 +43,6 @@ export default registerAs('application', (): UploaderConfig => {
       name: Joi.string().required(),
       user: Joi.string().required(),
       password: Joi.string().required(),
-      authBase: Joi.string().required(),
     })
   });
 
