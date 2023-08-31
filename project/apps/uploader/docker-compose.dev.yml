@@ -1,0 +1,37 @@
+version: '3.5'
+services:
+  readme.uploader.mongo:
+    image: mongo
+    restart: always
+    container_name: readme.uploader.mongo
+
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: $MONGO_USER
+      MONGO_INITDB_ROOT_PASSWORD: $MONGO_PASSWORD
+      MONGO_INITDB_DATABASE: $MONGO_DB
+
+    ports:
+      - $MONGO_PORT:27017
+
+    volumes:
+      - readme.uploader.mongo:/data/db
+
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:$MONGO_PORT/$MONGO_DB --quiet
+      interval: 10s
+      timeout: 10s
+      retries: 5
+
+  readme.uploader.mongo.ui:
+    image: mongo-express
+    restart: always
+    container_name: readme.uploader.mongo.ui
+    ports:
+      - 8082:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: $MONGO_USER
+      ME_CONFIG_MONGODB_ADMINPASSWORD: $MONGO_PASSWORD
+      ME_CONFIG_MONGODB_URL: mongodb://$MONGO_USER:$MONGO_PASSWORD@$MONGO_HOST:$MONGO_PORT/$MONGO_DB
+
+volumes:
+  readme.uploader.mongo:

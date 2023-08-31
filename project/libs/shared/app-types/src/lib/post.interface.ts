@@ -1,7 +1,5 @@
 import { PostStatus } from './post-status.enum'
-import { VideoPost, TextPost, QuotePost, PhotoPost, RefPost} from './content.interface';
 import { PostType } from './post-type.enum';
-import { Comment } from '@project/shared/app-types';
 
 export interface Post {
   postId: number;
@@ -16,6 +14,5 @@ export interface Post {
   originAuthor: string;
   originId: string;
   type: PostType;
-  content: VideoPost | TextPost | QuotePost | PhotoPost | RefPost;
-  comments: Comment[];
+  content: string;
 }
