@@ -25,6 +25,9 @@
       ],
       "@project/config/config-users": ["libs/config/config-users/src/index.ts"],
       "@project/models/posts-models": ["libs/models/posts-models/src/index.ts"],
+      "@project/repositories/file-repository": [
+        "libs/repositories/file-repository/src/index.ts"
+      ],
       "@project/repositories/post-repository": [
         "libs/repositories/post-repository/src/index.ts"
       ],

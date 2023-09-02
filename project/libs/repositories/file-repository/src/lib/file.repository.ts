@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { FileModel } from './file.model';
+import { FileModel } from '../../../../../apps/uploader/src/app/file/file.model';
 import { Model } from 'mongoose';
-import { FileEntity } from './file.entity';
+import { FileEntity } from '../../../../../apps/uploader/src/app/file/file.entity';
 import { File } from '@project/shared/app-types';
 
 @Injectable()

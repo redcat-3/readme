@@ -6,7 +6,7 @@ import { writeFile } from 'node:fs/promises';
 import dayjs from 'dayjs';
 import * as crypto from 'node:crypto';
 import { extension } from 'mime-types';
-import { FileRepository } from './file.repository';
+import { FileRepository } from '../../../../../libs/repositories/file-repository/src/lib/file.repository';
 import { FileEntity } from './file.entity';
 
 type WritedFile = {

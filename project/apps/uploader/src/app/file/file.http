@@ -6,6 +6,6 @@ Content-Type: multipart/form-data; boundary=boundary
 --boundary
 Content-Disposition: form-data; name="file"; filename="file.http"
 
-< ./file.http
+< .\file.http
 
 ###
