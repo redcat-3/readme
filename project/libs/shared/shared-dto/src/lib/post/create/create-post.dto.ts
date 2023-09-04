@@ -13,7 +13,7 @@ export class CreatePostDto {
 
   @ApiProperty({
     description: 'Status of post',
-    example: 'posted'
+    example: 'published'
   })
   @IsOptional()
   @IsEnum(PostStatus)

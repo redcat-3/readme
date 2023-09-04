@@ -3,5 +3,5 @@ export enum PostType {
   Text = 'text',
   Quote = 'quote',
   Photo = 'photo',
-  Ref = 'reference',
+  Link = 'link',
 }

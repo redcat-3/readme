@@ -13,7 +13,7 @@ export class LikesService {
 
   private async checkPostedStatus(id: number) {
     const PostStatus = (await this.PostRepository.findById(id)).status;
-    return PostStatus === PostStatus.published;
+    return PostStatus === 'published';
   }
 
   public async create(postId: number, userId: string) {

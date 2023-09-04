@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import {ConfigModule} from '@nestjs/config';
-import { ENV_BLOG_FILE_PATH } from './config-posts.constant';
+import { ENV_POSTS_FILE_PATH } from './config-posts.constant';
 import jwtConfig from './config/jwt.config';
 import rabbitConfig from './config/rabbit.config';
 
@@ -10,7 +10,7 @@ import rabbitConfig from './config/rabbit.config';
       isGlobal: true,
       cache: true,
       load: [ jwtConfig, rabbitConfig],
-      envFilePath: ENV_BLOG_FILE_PATH
+      envFilePath: ENV_POSTS_FILE_PATH
     }),
   ]
 })

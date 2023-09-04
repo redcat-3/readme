@@ -8,8 +8,9 @@ import { NotifyModule } from './notify/notify.module';
 
 @Module({
   imports: [
+    ConfigPostsModule,
     PostModule, PrismaModule, CommentModule,
-    LikeModule, ConfigPostsModule, NotifyModule
+    LikeModule,  NotifyModule
   ],
   controllers: [],
   providers: [],

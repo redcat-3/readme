@@ -17,7 +17,7 @@ import { UpdateLinkPostDto,
 
 export function adaptCreateDtoPost(dto: CreatePostDto) {
   switch (dto.type) {
-    case PostType.Ref:
+    case PostType.Link:
       return plainToInstance(CreateLinkPostDto, dto);
     case PostType.Photo:
       return plainToInstance(CreatePhotoPostDto, dto);
@@ -32,7 +32,7 @@ export function adaptCreateDtoPost(dto: CreatePostDto) {
 
 export function adaptUpdateDtoPost(dto: UpdatePostDto) {
   switch (dto.type) {
-    case PostType.Ref:
+    case PostType.Link:
       return plainToInstance(UpdateLinkPostDto, dto);
     case PostType.Photo:
       return plainToInstance(UpdatePhotoPostDto, dto);

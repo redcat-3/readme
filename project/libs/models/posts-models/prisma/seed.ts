@@ -1,52 +1,49 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, Prisma } from '../../../../../node_modules/.prisma/client'
 
 const prisma = new PrismaClient();
 
-async function fillDb() {
-  await prisma.post.upsert({
-    where: { postId: 1 },
-    update: {},
-    create: {
-      userId:'1',
-      type: 'text',
-      title: 'Title test',
-      announcement: 'test test',
-      text: 'Long text',
-      status: 'published',
-      likesCount:1,
-      commentsCount:0,
-      likes: {
-        create: [
-          {
-            likedByUsersIds: ['2']
-          }
-        ]
+const post1: Prisma.PostCreateInput = {
+  userId:'1',
+  type: 'text',
+  title: 'Title test',
+  announcement: 'test test',
+  text: 'Long text',
+  status: 'published',
+  likesCount:1,
+  commentsCount:0,
+  likes: {
+    create: [
+      {
+        likedByUsersIds: ['2']
       }
-    }
-  });
-  await prisma.post.upsert({
-    where: { postId: 2 },
-    update: {},
-    create: {
-      userId:'1',
-      type: 'text',
-      title: 'Title test 2',
-      announcement: 'Announcement',
-      text: 'Long text for post 2',
-      status: 'published',
-      likesCount:0,
-      commentsCount:1,
-      comments: {
-        create: [
-          {
-            userId: '2',
-            text: 'comment'
-          },
-        ]
-      },
-    }
-  });
+    ]
+  }
+}
+const post2: Prisma.PostCreateInput = {
+  userId:'2',
+  type: 'text',
+  title: 'Title new test',
+  announcement: 'new test test',
+  text: 'Very long text',
+  status: 'published',
+  likesCount:1,
+  commentsCount:0,
+  likes: {
+    create: [
+      {
+        likedByUsersIds: ['2']
+      }
+    ]
+  }
+}
 
+async function fillDb() {
+  await prisma.post.createMany({
+    data:[
+      post1,
+      post2
+    ]
+  });
   console.info('Database was filled')
 }
 

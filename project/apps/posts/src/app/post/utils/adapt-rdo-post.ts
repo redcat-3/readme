@@ -9,7 +9,7 @@ import { PostType } from '@prisma/client';
 
 export function adaptRdoPost(Post: Post) {
   switch (Post.type) {
-    case PostType.reference:
+    case PostType.link:
       return fillObject(LinkPostRdo, Post);
     case PostType.photo:
       return fillObject(PhotoPostRdo, Post);
