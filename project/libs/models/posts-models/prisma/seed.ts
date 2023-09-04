@@ -1,39 +1,62 @@
-import { PostStatus, PostType, PrismaClient } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
 async function fillDb() {
-  const first =  await prisma.post.upsert({
+  await prisma.post.upsert({
     where: { postId: 1 },
     update: {},
     create: {
-      title: 'Книги',
-      author: '13',
-      content: 'Недавно прочитал страшный роман «Худеющий».',
-      status: PostStatus.published,
-      likesCount: 0,
-      repost: false,
-      type: PostType.text
-    },
+      userId:'1',
+      type: 'text',
+      title: 'Title test',
+      announcement: 'test test',
+      text: 'Long text',
+      status: 'published',
+      likesCount:1,
+      commentsCount:0,
+      likes: {
+        create: [
+          {
+            likedByUsersIds: ['2']
+          }
+        ]
+      }
+    }
   });
-  const second = await prisma.post.upsert({
+  await prisma.post.upsert({
     where: { postId: 2 },
     update: {},
     create: {
-      title: 'Первый PC',
-      author: '13',
-      content: 'Первый PC появился в 2000-м году.',
-      status: PostStatus.draft,
-      likesCount: 0,
-      repost: false,
-      type: PostType.text
+      userId:'1',
+      type: 'text',
+      title: 'Title test 2',
+      announcement: 'Announcement',
+      text: 'Long text for post 2',
+      status: 'published',
+      likesCount:0,
+      commentsCount:1,
+      comments: {
+        create: [
+          {
+            userId: '2',
+            text: 'comment'
+          },
+        ]
+      },
     }
   });
-  console.log({ first, second });
-  console.info('🤘️ Database was filled')
+
+  console.info('Database was filled')
 }
 
 fillDb()
-.catch(console.error)
-.finally(() => prisma.$disconnect());
+  .then(async () => {
+    await prisma.$disconnect()
+  })
+  .catch(async (err) => {
+    console.error(err);
+    await prisma.$disconnect()
 
+    process.exit(1);
+  })

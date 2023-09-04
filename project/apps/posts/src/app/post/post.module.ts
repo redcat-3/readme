@@ -1,12 +1,19 @@
 import { Module } from '@nestjs/common';
 import { PostController } from './post.controller';
 import { PostService } from './post.service';
-import { PrismaModule } from '../prisma/prisma.module';
-import { CommentModule } from '../comment/comment.module';
-
+import { PostRepository } from './post.repository';
+import { JwtModule } from '@nestjs/jwt';
+import { ConfigService } from '@nestjs/config';
+import { JwtAccessStrategy, getJwtOptions } from '@project/util/util-core';
 @Module({
-  imports: [PrismaModule, CommentModule],
+  imports: [
+    JwtModule.registerAsync({
+      inject: [ConfigService],
+      useFactory: getJwtOptions,
+    }),
+  ],
   controllers: [PostController],
-  providers: [PostService]
+  providers: [PostService, PostRepository, JwtAccessStrategy],
+  exports: [PostRepository],
 })
 export class PostModule {}

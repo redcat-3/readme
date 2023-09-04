@@ -9,7 +9,7 @@ Content-Type: application/json
   "author": "3",
   "status": "published",
   "likesCount": 25,
-  "repost": false,
+  "isReposted": false,
   "originAuthor": "",
   "originId": "",
   "type": "photo",
