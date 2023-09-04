@@ -10,7 +10,6 @@ export interface NotifyConfig {
     user: string;
     name: string;
     password: string;
-    authBase: string;
   },
   rabbit: {
     host: string;
@@ -39,7 +38,6 @@ export default registerAs('application', (): NotifyConfig => {
       name: process.env.MONGO_DB,
       user: process.env.MONGO_USER,
       password: process.env.MONGO_PASSWORD,
-      authBase: process.env.MONGO_AUTH_BASE,
     },
     rabbit: {
       host: process.env.RABBIT_HOST,

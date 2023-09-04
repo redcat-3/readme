@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { UserRepository } from '../../../../../libs/repositories/user-repository/src/lib/user.repository';
+import { BlogUserRepository } from './blog-user.repository';
 
 @Injectable()
 export class BlogUserService {
   constructor(
-    private readonly userRepository: UserRepository,
+    private readonly userRepository: BlogUserRepository,
   ) {
   }
   public async findByEmail(email: string) {

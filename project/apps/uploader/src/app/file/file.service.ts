@@ -25,7 +25,7 @@ export class FileService {
   ) {}
   private async writeFile(file: Express.Multer.File): Promise<WritedFile> {
     const [ year, month ] = dayjs().format('YYYY MM').split(' ');
-    const { uploadDirectory } = this.applicationConfig;
+    const uploadDirectory = this.applicationConfig.uploadDirectory;
     const subDirectory = `${year}/${month}`;
     const uuid = crypto.randomUUID();
     const fileExtension = extension(file.mimetype);

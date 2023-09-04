@@ -1,7 +1,7 @@
 import { Controller, Get, Inject, Param, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Express } from 'express';
-import 'multer'
+import multer, { diskStorage } from 'multer';
 import path from 'node:path';
 import { FileService } from './file.service';
 import { fillObject } from '@project/util/util-core';
@@ -25,6 +25,15 @@ export class FileController {
   public async uploadFile(@UploadedFile() file: Express.Multer.File) {
     const newFile = await this.fileService.saveFile(file);
     const filePath = path.join(this.applicationConfig.serveRoot, newFile.path);
+    const storage = diskStorage({
+      destination: filePath,
+      filename: (_req, file, callback) => {
+        const extension = newFile.mimetype;
+        const filename = newFile.id;
+        callback(null, `${filename}.${extension}`);
+      }
+    });
+    multer({ storage: storage }).single(file.fieldname);
     return fillObject(UploadedFileRdo, Object.assign(newFile, { filePath }));
   }
 
