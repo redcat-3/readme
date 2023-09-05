@@ -4,7 +4,7 @@ import { getMongoConnectionString } from './helpers';
 
 export function getMongooseOptions(optionSpace: string): MongooseModuleAsyncOptions {
   return {
-    imports: [],
+    imports: [ ConfigService ],
     useFactory: async (config: ConfigService) => {
       return {
         uri: getMongoConnectionString({

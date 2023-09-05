@@ -6,8 +6,7 @@ import { DEFAULT_OPTION_SPACE } from './notify.constant';
 
 @Module({
   imports: [
-    RabbitMQModule.forRootAsync(
-      RabbitMQModule,
+    RabbitMQModule.forRootAsync(RabbitMQModule,
       getRabbitMQOptions(DEFAULT_OPTION_SPACE)
     )
   ],

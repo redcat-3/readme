@@ -41,8 +41,8 @@ export class PostController {
     @Body(TypePostValidationPipe, CreatePostValidationPipe)
     dto: CreatePostDto) {
     const userId = user.sub;
-    const Post = await this.PostsService.create(dto, userId);
-    return adaptRdoPost(Post);
+    const post = await this.PostsService.create(dto, userId);
+    return adaptRdoPost(post);
   }
 
   @ApiResponse({
