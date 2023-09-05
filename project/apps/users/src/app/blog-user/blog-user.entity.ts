@@ -9,7 +9,7 @@ export class BlogUserEntity implements User {
   public name: string;
   public passwordHash: string;
   public posts: string[];
-  public followUsers: string[];
+  public followUsers: BlogUserEntity[];
   public createdAt: Date;
   public updateAt: Date;
   public likedPost: string[];

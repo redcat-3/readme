@@ -12,13 +12,13 @@ export class CommentRepository {
   public async create(item: CommentEntity): Promise<IComment> {
     const data = { ...item.toObject(), userId: item._userId};
     delete data._userId;
-    const comment = await this.prisma.comment.create({data})
+    const comment = await this.prisma.comment.create({ data })
    await this.prisma.post.update({
     where:{
-      postId:item.postId
+      postId: item.postId
     },
     data:{
-      commentsCount:{increment:1}
+      commentsCount: { increment: 1 }
     }
    })
     return adaptPrismaComment(comment);

@@ -1,18 +1,18 @@
 import { CRUDRepository } from '@project/util/util-types';
-import { Post, PostStatus } from '@project/shared/app-types';
+import { PostContentType, PostStatus } from '@project/shared/app-types';
 import { PostQuery, SearchPostsQuery } from '@project/shared/shared-queries';
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { adaptPrismaPost } from './utils/adapt-prisma-post';
-import { PostEntity } from './entity/post.entity';
 import { formatTags } from './utils/helpers';
 import { Prisma, PostType} from '@prisma/client';
+import { PostContentEntity } from './entity/post-content-entity.type';
 
 @Injectable()
-export class PostRepository implements CRUDRepository<PostEntity, number, Post> {
+export class PostRepository implements CRUDRepository<PostContentEntity, number, PostContentType> {
   constructor(private readonly prisma: PrismaService) { }
 
-  public async create(item: PostEntity): Promise<Post> {
+  public async create(item: PostContentEntity): Promise<PostContentType> {
     const post: Prisma.PostCreateInput = {
       ...item.toObject(),
       userId: item._userId,
@@ -26,8 +26,8 @@ export class PostRepository implements CRUDRepository<PostEntity, number, Post> 
     return adaptPrismaPost(createdPost)
   }
 
-  public async findById(postId: number): Promise<Post | null> {
-    const Post = await this.prisma.post.findFirst({
+  public async findById(postId: number): Promise<PostContentType | null> {
+    const post = await this.prisma.post.findFirst({
       where: {
         postId
       },
@@ -36,11 +36,11 @@ export class PostRepository implements CRUDRepository<PostEntity, number, Post> 
         likes: true,
       },
     });
-    return adaptPrismaPost(Post)
+    return adaptPrismaPost(post)
   }
 
-  public async findRepost(postId: number, userId:string): Promise<Post | null> {
-    const Post = await this.prisma.post.findFirst({
+  public async findRepost(postId: number, userId:string): Promise<PostContentType | null> {
+    const post = await this.prisma.post.findFirst({
       where: {
       AND:{
         originId: postId,
@@ -51,10 +51,10 @@ export class PostRepository implements CRUDRepository<PostEntity, number, Post> 
         likes: true,
       },
     });
-    return adaptPrismaPost(Post)
+    return adaptPrismaPost(post)
   }
 
-  public async findAll({ limit, page, sortBy, type, sortDirection, user, tag }: PostQuery): Promise<Post[]> {
+  public async findAll({ limit, page, sortBy, type, sortDirection, user, tag }: PostQuery): Promise<PostContentType[]> {
     const queryParams = {
       where: {
         AND: {
@@ -77,29 +77,12 @@ export class PostRepository implements CRUDRepository<PostEntity, number, Post> 
     if (tag) {
       queryParams.where.AND.tags = { has: tag };
     }
-    const Posts = await this.prisma.post.findMany({ where: {
-      AND: {
-        status: PostStatus.Published,
-        type: type as PostType,
-        userId: user,
-        tags:undefined
-      }
-    },
-    take: limit,
-    include: {
-      comments: true,
-      likes: true,
-    },
-    orderBy: [
-      { [sortBy]: sortDirection }
-    ],
-    skip: page > 0 ? limit * (page - 1) : undefined,
-  });
-    return Posts.map((Post) => adaptPrismaPost(Post))
+    const posts = await this.prisma.post.findMany(queryParams);
+    return posts.map((post) => adaptPrismaPost(post))
   }
 
-  public async getFullList(): Promise<Post[]> {
-    const Posts = await this.prisma.post.findMany({
+  public async getFullList(): Promise<PostContentType[]> {
+    const posts = await this.prisma.post.findMany({
       where: {
           status: PostStatus.Published
       },
@@ -108,11 +91,11 @@ export class PostRepository implements CRUDRepository<PostEntity, number, Post> 
         likes: true,
       },
     });
-    return Posts.map((Post) => adaptPrismaPost(Post))
+    return posts.map((post) => adaptPrismaPost(post))
   }
 
-  public async searchByTitle({ title, limit }: SearchPostsQuery): Promise<Post[]> {
-    const Posts = await this.prisma.post.findMany({
+  public async searchByTitle({ title, limit }: SearchPostsQuery): Promise<PostContentType[]> {
+    const posts = await this.prisma.post.findMany({
       where: {
         AND: {
           status: PostStatus.Published,
@@ -127,11 +110,11 @@ export class PostRepository implements CRUDRepository<PostEntity, number, Post> 
         likes: true,
       },
     });
-    return Posts.map((Post) => adaptPrismaPost(Post))
+    return posts.map((post) => adaptPrismaPost(post))
   }
 
-  public async findDrafts(userId: string): Promise<Post[]> {
-    const Posts = await this.prisma.post.findMany({
+  public async findDrafts(userId: string): Promise<PostContentType[]> {
+    const posts = await this.prisma.post.findMany({
       where: {
         AND: {
           status: PostStatus.Draft,
@@ -143,10 +126,10 @@ export class PostRepository implements CRUDRepository<PostEntity, number, Post> 
         likes: true,
       }
     });
-    return Posts.map((Post) => adaptPrismaPost(Post))
+    return posts.map((post) => adaptPrismaPost(post))
   }
 
-  public async update(postId: number, item: PostEntity): Promise<Post> {
+  public async update(postId: number, item: PostContentEntity): Promise<PostContentType> {
     const data = {
       ...item.toObject(),
       tags:formatTags(item.tags),
@@ -157,7 +140,7 @@ export class PostRepository implements CRUDRepository<PostEntity, number, Post> 
     delete data._userId;
     delete data._originUserId;
 
-    const Post = await this.prisma.post.update({
+    const post = await this.prisma.post.update({
       where: { postId },
       data,
       include: {
@@ -165,7 +148,7 @@ export class PostRepository implements CRUDRepository<PostEntity, number, Post> 
         likes: true,
       }
     });
-    return adaptPrismaPost(Post)
+    return adaptPrismaPost(post)
   }
 
   public async destroy(postId: number): Promise<void> {

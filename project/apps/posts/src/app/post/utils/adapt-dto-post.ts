@@ -5,7 +5,8 @@ import {
   CreateQuotePostDto,
   CreateTextPostDto,
   CreateVideoPostDto,
-  CreatePostDto
+  CreatePostContentDto,
+  UpdatePostContentDto
 } from '@project/shared/shared-dto';
 import { PostType } from '@project/shared/app-types';
 import { UpdateLinkPostDto,
@@ -13,9 +14,9 @@ import { UpdateLinkPostDto,
   UpdateQuotePostDto,
   UpdateTextPostDto,
   UpdateVideoPostDto,
-  UpdatePostDto } from '@project/shared/shared-dto';
+} from '@project/shared/shared-dto';
 
-export function adaptCreateDtoPost(dto: CreatePostDto) {
+export function adaptCreateDtoPost(dto: CreatePostContentDto) {
   switch (dto.type) {
     case PostType.Link:
       return plainToInstance(CreateLinkPostDto, dto);
@@ -30,7 +31,7 @@ export function adaptCreateDtoPost(dto: CreatePostDto) {
   }
 }
 
-export function adaptUpdateDtoPost(dto: UpdatePostDto) {
+export function adaptUpdateDtoPost(dto: UpdatePostContentDto) {
   switch (dto.type) {
     case PostType.Link:
       return plainToInstance(UpdateLinkPostDto, dto);

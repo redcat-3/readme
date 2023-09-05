@@ -3,7 +3,7 @@ import { CommentRepository } from './comment.repository';
 import { CreateCommentDto } from '@project/shared/shared-dto';
 import { CommentEntity } from './comment.entity';
 import { CommentQuery } from '@project/shared/shared-queries';
-import { CommentsError } from './comments.constant';
+import { CommentsError } from './comment.constant';
 
 @Injectable()
 export class CommentService {

@@ -4,4 +4,4 @@ import { QuotePostEntity } from './post-quote.entity';
 import { TextPostEntity } from './post-text.entity';
 import { VideoPostEntity } from './post-video.entity';
 
-export type BlogPostEntity = LinkPostEntity | PhotoPostEntity | QuotePostEntity | TextPostEntity | VideoPostEntity;
+export type PostContentEntity = LinkPostEntity | PhotoPostEntity | QuotePostEntity | TextPostEntity | VideoPostEntity;

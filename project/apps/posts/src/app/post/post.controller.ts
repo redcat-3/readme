@@ -5,10 +5,10 @@ import { ApiExtraModels, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { API_TAG_NAME, PostMessages, PostPath, PostsError } from './post.constant';
 import { PostRdo } from './rdo/post.rdo';
 import {
-  CreatePostDto, CreateLinkPostDto, CreatePhotoPostDto,
+  CreateLinkPostDto, CreatePhotoPostDto,
   CreateQuotePostDto, CreateTextPostDto, CreateVideoPostDto,
-  UpdatePostDto, UpdateLinkPostDto, UpdatePhotoPostDto,
-  UpdateQuotePostDto, UpdateTextPostDto, UpdateVideoPostDto
+  UpdateLinkPostDto, UpdatePhotoPostDto,
+  UpdateQuotePostDto, UpdateTextPostDto, UpdateVideoPostDto, CreatePostContentDto, UpdatePostContentDto
 } from '@project/shared/shared-dto';
 import { adaptRdoPost } from './utils/adapt-rdo-post';
 import { CreatePostValidationPipe } from './pipes/create-post-validation.pipe';
@@ -26,7 +26,7 @@ import { RequestWithUserPayload } from '@project/shared/app-types';
 @Controller(PostPath.Main)
 export class PostController {
   constructor(
-    private readonly PostsService: PostService
+    private readonly postsService: PostService
   ) { }
 
   @ApiResponse({
@@ -39,9 +39,9 @@ export class PostController {
   public async create(
     @Req() { user }: RequestWithUserPayload,
     @Body(TypePostValidationPipe, CreatePostValidationPipe)
-    dto: CreatePostDto) {
+    dto: CreatePostContentDto) {
     const userId = user.sub;
-    const post = await this.PostsService.create(dto, userId);
+    const post = await this.postsService.create(dto, userId);
     return adaptRdoPost(post);
   }
 
@@ -55,10 +55,10 @@ export class PostController {
   public async update(@Req() { user }: RequestWithUserPayload,
     @Param('id') id: number,
     @Body(TypePostValidationPipe, UpdatePostValidationPipe)
-    dto: UpdatePostDto) {
+    dto: UpdatePostContentDto) {
     const userId = user.sub;
-    const Post = await this.PostsService.update(id, dto, userId);
-    return adaptRdoPost(Post);
+    const post = await this.postsService.update(id, dto, userId);
+    return adaptRdoPost(post);
   }
 
   @ApiResponse({
@@ -71,8 +71,8 @@ export class PostController {
   public async repost(@Param('id') id: number,
     @Req() { user }: RequestWithUserPayload) {
     const userId = user.sub;
-    const Post = await this.PostsService.repost(id, userId);
-    return adaptRdoPost(Post);
+    const post = await this.postsService.repost(id, userId);
+    return adaptRdoPost(post);
   }
 
   @ApiResponse({
@@ -88,6 +88,6 @@ export class PostController {
   public async delete(@Param('id') id: number,
     @Req() { user }: RequestWithUserPayload) {
     const userId = user.sub;
-    return await this.PostsService.remove(id, userId);
+    return await this.postsService.remove(id, userId);
   }
 }
