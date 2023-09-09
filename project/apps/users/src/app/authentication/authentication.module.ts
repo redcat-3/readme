@@ -9,9 +9,11 @@ import { NotifyModule } from '../notify/notify.module';
 import { LocalStrategy } from './strategies/local.strategy';
 import { JwtRefreshStrategy } from './strategies/jwt-refresh.strategy';
 import { RefreshTokenModule } from '../refresh-token/refresh-token.module';
+import { BlogUserRepositoryModule } from '@project/repositories/user-repository';
 
 @Module({
   imports: [
+    BlogUserRepositoryModule,
     BlogUserModule,
     JwtModule.registerAsync({
       imports: [],

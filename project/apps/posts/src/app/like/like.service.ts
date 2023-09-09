@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { LikeRepository } from './like.repository';
+import { LikeRepository } from '../../../../../libs/repositories/post-repository/src/lib/like.repository';
 import { LikeEntity } from './like-entity';
-import { PostRepository } from '../post/post.repository';
+import { PostRepository } from '../../../../../libs/repositories/post-repository/src';
 import { LikesError } from './like.constant';
 
 @Injectable()

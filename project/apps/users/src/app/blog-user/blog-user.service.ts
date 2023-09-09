@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { BlogUserRepository } from './blog-user.repository';
+import { BlogUserRepository } from '../../../../../libs/repositories/user-repository/src/lib/blog-user.repository';
+import { User } from '@project/shared/app-types';
 
 @Injectable()
 export class BlogUserService {
@@ -7,19 +8,11 @@ export class BlogUserService {
     private readonly userRepository: BlogUserRepository,
   ) {
   }
-  public async findByEmail(email: string) {
+  public async findByEmail(email: string): Promise<User | null> {
     return await this.userRepository.findByEmail(email);
   }
 
-  public async getFollowUsers() {
-    return;
-  }
-
-  public async followUser(id: string) {
-    return id;
-  }
-
-  public async getUserDetails(id: string) {
-    return this.userRepository.findById(id);
+  public async findById(id: string): Promise<User | null> {
+    return await this.userRepository.findByEmail(id);
   }
 }

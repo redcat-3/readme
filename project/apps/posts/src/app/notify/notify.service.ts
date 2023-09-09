@@ -12,7 +12,9 @@ export class NotifyService {
     private readonly rabbitClient: AmqpConnection,
     @Inject(rabbitConfig.KEY)
     private readonly rabbitOptions: ConfigType<typeof rabbitConfig>,
-  ) { }
+  ) {
+    console.log(rabbitConfig.KEY);
+  }
 
   public async sendNewsletter(dto: SendNewsletterDto) {
     return this.rabbitClient.publish<SendNewsletterDto>(

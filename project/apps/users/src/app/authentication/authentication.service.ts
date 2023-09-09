@@ -1,7 +1,7 @@
 import { ConflictException, Inject, Injectable, NotFoundException, UnauthorizedException, BadRequestException } from '@nestjs/common';
 import { AuthError, DEFAULT_AMOUNT } from './authentication.constant';
 import { BlogUserEntity } from '../blog-user/blog-user.entity';
-import { BlogUserRepository } from '../blog-user/blog-user.repository';
+import { BlogUserRepository } from '../../../../../libs/repositories/user-repository/src/lib/blog-user.repository';
 import { User } from '@project/shared/app-types';
 import { JwtService } from '@nestjs/jwt';
 import { jwtConfig } from '@project/config/config-users';

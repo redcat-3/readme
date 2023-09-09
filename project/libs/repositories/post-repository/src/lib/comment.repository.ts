@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { CommentEntity } from './comment.entity';
+import { CommentEntity } from '../../../../../apps/posts/src/app/comment/comment.entity';
 import { IComment } from '@project/shared/app-types';
-import { PrismaService } from '../prisma/prisma.service';
-import { adaptPrismaComment } from './utils/adapt-prisma-comment';
+import { PrismaService } from './prisma/prisma.service';
+import { adaptPrismaComment } from '../../../../../apps/posts/src/app/comment/utils/adapt-prisma-comment';
 import { CommentQuery } from '@project/shared/shared-queries';
 
 @Injectable()

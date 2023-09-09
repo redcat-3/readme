@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
-import { PostRepository } from './post.repository';
+import { PostRepository } from '../../../../../libs/repositories/post-repository/src';
 import { DEFAULT_AMOUNT, PostsError } from './post.constant';
 import { CreatePostContentDto, UpdatePostContentDto } from '@project/shared/shared-dto';
 import { TypeEntityAdapter } from './utils/entity-adapter';

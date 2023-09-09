@@ -1,21 +1,23 @@
 import { Module } from '@nestjs/common';
 import { LikesController } from './like.controller';
 import { LikesService } from './like.service';
-import { LikeRepository } from './like.repository';
+import { LikeRepository } from '../../../../../libs/repositories/post-repository/src/lib/like.repository';
 import { PostModule } from '../post/post.module';
+import { JwtAccessStrategy } from '@project/util/util-core';
+import { PostRepositoryModule } from '@project/repositories/post-repository';
 import { JwtModule } from '@nestjs/jwt';
-import { ConfigService } from '@nestjs/config';
-import { JwtAccessStrategy, getJwtOptions } from '@project/util/util-core';
-import { PrismaModule } from '../prisma/prisma.module';
 @Module({
   imports: [
     PostModule,
+    PostRepositoryModule,
     JwtModule.registerAsync({
-      imports: [ConfigService],
-      useFactory: getJwtOptions,
-      inject: [ConfigService],
+      useFactory: async () => ({
+        secretOrPrivateKey: process.env.JWT_SECRET_KEY,
+        signOptions: {
+          expiresIn: process.env.JWT_EXPIRATION_TIME,
+        },
+      }),
     }),
-    PrismaModule
   ],
   controllers: [LikesController],
   providers: [LikesService, LikeRepository, JwtAccessStrategy],

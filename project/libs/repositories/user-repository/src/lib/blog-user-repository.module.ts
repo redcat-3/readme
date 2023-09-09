@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { UserRepository } from '../../../../../apps/users/src/app/blog-user/blog-user.repository';
+import { BlogUserRepository } from './blog-user.repository';
 import { MongooseModule } from '@nestjs/mongoose';
 import { BlogUserModel, BlogUserSchema } from '../../../../../apps/users/src/app/blog-user/blog-user.model';
 
@@ -9,7 +9,7 @@ import { BlogUserModel, BlogUserSchema } from '../../../../../apps/users/src/app
       { name: BlogUserModel.name, schema: BlogUserSchema },
     ]),
   ],
-  providers: [UserRepository],
-  exports: [UserRepository]
+  providers: [BlogUserRepository],
+  exports: [BlogUserRepository]
 })
-export class UserRepositoryModule {}
+export class BlogUserRepositoryModule {}

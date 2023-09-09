@@ -1,19 +1,21 @@
 import { Module } from '@nestjs/common';
 import { CommentController } from './comment.controller';
 import { CommentService } from './comment.service';
-import { CommentRepository } from './comment.repository';
+import { CommentRepository } from '../../../../../libs/repositories/post-repository/src/lib/comment.repository';
+import { JwtAccessStrategy } from '@project/util/util-core';
+import { PostRepositoryModule } from '@project/repositories/post-repository';
 import { JwtModule } from '@nestjs/jwt';
-import { ConfigService } from '@nestjs/config';
-import { JwtAccessStrategy, getJwtOptions } from '@project/util/util-core';
-import { PrismaModule } from '../prisma/prisma.module';
 @Module({
   imports: [
+    PostRepositoryModule,
     JwtModule.registerAsync({
-      imports: [ConfigService],
-      useFactory: getJwtOptions,
-      inject: [ConfigService],
+      useFactory: async () => ({
+        secretOrPrivateKey: process.env.JWT_SECRET_KEY,
+        signOptions: {
+          expiresIn: process.env.JWT_EXPIRATION_TIME,
+        },
+      }),
     }),
-    PrismaModule
   ],
   controllers: [CommentController],
   providers: [CommentService, CommentRepository, JwtAccessStrategy],

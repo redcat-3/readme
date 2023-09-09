@@ -1,8 +1,8 @@
 import { CRUDRepository } from '@project/util/util-types';
 import { Injectable } from '@nestjs/common';
 import { Like } from '@project/shared/app-types';
-import { LikeEntity } from './like-entity';
-import { PrismaService } from '../prisma/prisma.service';
+import { LikeEntity } from '../../../../../apps/posts/src/app/like/like-entity';
+import { PrismaService } from './prisma/prisma.service';
 
 @Injectable()
 export class LikeRepository implements CRUDRepository<LikeEntity, number, Like> {

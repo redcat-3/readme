@@ -19,7 +19,7 @@ async function bootstrap() {
   .setVersion('1.0')
   .build();
 
-  const globalPrefix = configService.get('globalPrefix');
+  const globalPrefix = configService.get('application.globalPrefix');
   app.setGlobalPrefix(globalPrefix);
 
   const document = SwaggerModule.createDocument(app, config);
@@ -29,7 +29,7 @@ async function bootstrap() {
     transform: true,
   }));
 
-  const port = configService.get('port');
+  const port = configService.get('application.port');
 
   await app.listen(port);
 

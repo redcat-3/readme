@@ -3,7 +3,6 @@ import { getRabbitMQConnectionString } from './helpers';
 
 export function getRabbitMQOptions(optionSpace: string) {
   return {
-    imports: [ ConfigService ],
     useFactory: async (config: ConfigService) => ({
       exchanges: [
         {

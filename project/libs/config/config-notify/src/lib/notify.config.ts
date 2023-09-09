@@ -15,8 +15,10 @@ export interface NotifyConfig {
     host: string;
     password: string;
     user: string;
-    queue: string;
-    exchange: string;
+    queueNews: string;
+    queueSubscriber: string;
+    exchangeNews: string;
+    exchangeSubscriber: string;
     port: number;
   },
   mail: {
@@ -44,8 +46,10 @@ export default registerAs('application', (): NotifyConfig => {
       password: process.env.RABBIT_PASSWORD,
       port: parseInt(process.env.RABBIT_PORT, 10),
       user: process.env.RABBIT_USER,
-      queue: process.env.RABBIT_QUEUE,
-      exchange: process.env.RABBIT_EXCHANGE,
+      queueNews: process.env.RABBIT_NEWS_QUEUE,
+      queueSubscriber: process.env.RABBIT_SUBSCRIBER_QUEUE,
+      exchangeNews: process.env.RABBIT_NEWS_EXCHANGE,
+      exchangeSubscriber: process.env.RABBIT_SUBSCRIBER_EXCHANGE,
     },
     mail: {
       host: process.env.MAIL_SMTP_HOST,
@@ -73,8 +77,10 @@ export default registerAs('application', (): NotifyConfig => {
       password: Joi.string().required(),
       port: Joi.number().port(),
       user: Joi.string().required(),
-      queue: Joi.string().required(),
-      exchange: Joi.string().required(),
+      queueNews: Joi.string().required(),
+      queueSubscriber: Joi.string().required(),
+      exchangeNews: Joi.string().required(),
+      exchangeSubscriber: Joi.string().required(),
     }),
     mail: Joi.object({
       host: Joi.string().valid().hostname().required(),

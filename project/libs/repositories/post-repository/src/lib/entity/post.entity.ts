@@ -1,5 +1,5 @@
 import { Post } from '@project/shared/app-types';
-import { DEFAULT_AMOUNT, DEFAULT_STATUS } from '../post.constant';
+import { DEFAULT_AMOUNT, DEFAULT_STATUS } from '../../../../../../apps/posts/src/app/post/post.constant';
 import { PostStatus, PostType } from '@prisma/client';
 
 export abstract class PostEntity implements Post{

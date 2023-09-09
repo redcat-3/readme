@@ -10,7 +10,7 @@ import {
   UpdateLinkPostDto, UpdatePhotoPostDto,
   UpdateQuotePostDto, UpdateTextPostDto, UpdateVideoPostDto, CreatePostContentDto, UpdatePostContentDto
 } from '@project/shared/shared-dto';
-import { adaptRdoPost } from './utils/adapt-rdo-post';
+import { adaptRdoPost } from '../../../../../libs/util/util-core/src/lib/adapt-rdo-post';
 import { CreatePostValidationPipe } from './pipes/create-post-validation.pipe';
 import { UpdatePostValidationPipe } from './pipes/update-post-validation.pipe';
 import { JwtAuthGuard } from '@project/util/util-core';

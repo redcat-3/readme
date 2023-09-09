@@ -2,7 +2,7 @@ import { CRUDRepository } from '@project/util/util-types';
 import { PostContentType, PostStatus } from '@project/shared/app-types';
 import { PostQuery, SearchPostsQuery } from '@project/shared/shared-queries';
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../prisma/prisma.service';
+import { PrismaService } from './prisma/prisma.service';
 import { adaptPrismaPost } from './utils/adapt-prisma-post';
 import { formatTags } from './utils/helpers';
 import { Prisma, PostType} from '@prisma/client';
@@ -110,6 +110,16 @@ export class PostRepository implements CRUDRepository<PostContentEntity, number,
         likes: true,
       },
     });
+    return posts.map((post) => adaptPrismaPost(post))
+  }
+
+  public async searchByUserId( userId: string ): Promise<PostContentType[]> {
+    const queryParams = {
+      where: {
+        userId
+      },
+    }
+    const posts = await this.prisma.post.findMany(queryParams);
     return posts.map((post) => adaptPrismaPost(post))
   }
 

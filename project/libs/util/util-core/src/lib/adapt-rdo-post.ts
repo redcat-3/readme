@@ -1,10 +1,10 @@
 import { PostContentType } from '@project/shared/app-types';
 import { fillObject } from '@project/util/util-core';
-import { LinkPostRdo } from '../rdo/post-link.rdo';
-import { PhotoPostRdo } from '../rdo/post-photo.rdo';
-import { QuotePostRdo } from '../rdo/post-quote.rdo';
-import { TextPostRdo } from '../rdo/post-text.rdo';
-import { VideoPostRdo } from '../rdo/post-video.rdo';
+import { LinkPostRdo } from '../../../../../apps/posts/src/app/post/rdo/post-link.rdo';
+import { PhotoPostRdo } from '../../../../../apps/posts/src/app/post/rdo/post-photo.rdo';
+import { QuotePostRdo } from '../../../../../apps/posts/src/app/post/rdo/post-quote.rdo';
+import { TextPostRdo } from '../../../../../apps/posts/src/app/post/rdo/post-text.rdo';
+import { VideoPostRdo } from '../../../../../apps/posts/src/app/post/rdo/post-video.rdo';
 import { PostType } from '@prisma/client';
 
 export function adaptRdoPost(post: PostContentType) {

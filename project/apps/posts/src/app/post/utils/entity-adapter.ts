@@ -1,8 +1,8 @@
-import { LinkPostEntity } from '../entity/post-link.entity';
-import { PhotoPostEntity } from '../entity/post-photo.entity';
-import { QuotePostEntity } from '../entity/post-quote.entity';
-import { TextPostEntity } from '../entity/post-text.entity';
-import { VideoPostEntity } from '../entity/post-video.entity';
+import { LinkPostEntity } from '../../../../../../libs/repositories/post-repository/src/lib/entity/post-link.entity';
+import { PhotoPostEntity } from '../../../../../../libs/repositories/post-repository/src/lib/entity/post-photo.entity';
+import { QuotePostEntity } from '../../../../../../libs/repositories/post-repository/src/lib/entity/post-quote.entity';
+import { TextPostEntity } from '../../../../../../libs/repositories/post-repository/src/lib/entity/post-text.entity';
+import { VideoPostEntity } from '../../../../../../libs/repositories/post-repository/src/lib/entity/post-video.entity';
 
 export const TypeEntityAdapter = {
   'link': LinkPostEntity,

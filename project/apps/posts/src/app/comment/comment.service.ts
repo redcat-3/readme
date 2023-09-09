@@ -1,5 +1,5 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
-import { CommentRepository } from './comment.repository';
+import { CommentRepository } from '../../../../../libs/repositories/post-repository/src/lib/comment.repository';
 import { CreateCommentDto } from '@project/shared/shared-dto';
 import { CommentEntity } from './comment.entity';
 import { CommentQuery } from '@project/shared/shared-queries';

@@ -6,4 +6,6 @@ export interface User {
   passwordHash: string;
   postsCount?:number;
   subscribersCount?:number;
+  followUsers?: string[];
+  createdAt?: Date;
 }
